@@ -1,7 +1,6 @@
 package com.example.vmac.WatBot;
 
 import com.ibm.watson.developer_cloud.android.library.audio.MicrophoneInputStream;
-import com.ibm.watson.developer_cloud.android.library.audio.utils.ContentType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
@@ -13,7 +12,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallb
 public class SpeechParser {
 
     private SpeechToText speechService;
-    private String result;
+    private String result = null;
 
     private MicrophoneInputStream capture;
     private boolean listening = false;
@@ -21,7 +20,6 @@ public class SpeechParser {
     public SpeechParser() {
 
         speechService = initSpeechToTextService();
-        result = "default text";
 
     }
 
@@ -34,32 +32,31 @@ public class SpeechParser {
         return service;
     }
 
-    public String parseAudio() {
-        if(listening != true) {
-            capture = new MicrophoneInputStream(true);
-            new Thread(new Runnable() {
-                @Override public void run() {
-                    try {
-                        speechService.recognizeUsingWebSocket(capture, getRecognizeOptions(), new MicrophoneRecognizeDelegate());
-                    } catch (Exception e) {
+    public void startParsing() {
+        result = null;
+        capture = new MicrophoneInputStream(true);
+        new Thread(new Runnable() {
+            @Override public void run() {
+                try {
+                    speechService.recognizeUsingWebSocket(capture, getRecognizeOptions(), new MicrophoneRecognizeDelegate());
+                } catch (Exception e) {
 
-                    }
                 }
-            }).start();
-            listening = true;
-        } else {
-            try {
-                capture.close();
-                listening = false;
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        }).start();
+    }
 
+    public String stopParsing() {
+        try {
+            capture.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return result;
     }
 
     private RecognizeOptions getRecognizeOptions() {
+        /*
         return new RecognizeOptions.Builder()
                 .continuous(true)
                 .contentType(ContentType.OPUS.toString())
@@ -67,6 +64,8 @@ public class SpeechParser {
                 .interimResults(true)
                 .inactivityTimeout(2000)
                 .build();
+                */
+        return new RecognizeOptions.Builder().build();
     }
 
     private class MicrophoneRecognizeDelegate implements RecognizeCallback {
