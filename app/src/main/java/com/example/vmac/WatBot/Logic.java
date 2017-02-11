@@ -25,7 +25,7 @@ public class Logic implements MessageListener{
         }
         else if(step==2) {
             //todo 가능한지 판단하기
-            if(true){
+            if(false){
             ms.messageFromBot("Please tell a command");
             step++; }
             else
