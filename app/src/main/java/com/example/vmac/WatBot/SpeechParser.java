@@ -36,6 +36,7 @@ public class SpeechParser {
     public void startParsing() {
         result = null;
         parsing = true;
+
         capture = new MicrophoneInputStream(true);
         new Thread(new Runnable() {
             @Override public void run() {

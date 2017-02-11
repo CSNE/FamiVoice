@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener{
                     }
 
                 }else{
-                    if (checkInternetConnection() ) {
+                    if (checkInternetConnection()) {
                         sp.startParsing();
                     }
 
