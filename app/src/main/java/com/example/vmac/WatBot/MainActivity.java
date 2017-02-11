@@ -10,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -33,26 +34,27 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ChatAdapter mAdapter;
     private ArrayList messageArrayList;
-    private EditText inputMessage;
-    private ImageButton btnSend;
-    private Map<String,Object> context = new HashMap<>();
-    StreamPlayer streamPlayer;
-    private boolean initialRequest;
+    //private EditText inputMessage;
+    //private ImageButton btnSend;
+    //private Map<String,Object> context = new HashMap<>();
+    //StreamPlayer streamPlayer;
+    //private boolean initialRequest;
+    private Button recordButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+/*
         inputMessage = (EditText) findViewById(R.id.message);
         btnSend = (ImageButton) findViewById(R.id.btn_send);
         String customFont = "Montserrat-Regular.ttf";
         Typeface typeface = Typeface.createFromAsset(getAssets(), customFont);
         inputMessage.setTypeface(typeface);
-
+*/
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        messageArrayList = new ArrayList<>();
+        messageArrayList = new ArrayList<Message>();
         mAdapter = new ChatAdapter(messageArrayList);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -60,14 +62,23 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-        this.inputMessage.setText("");
-        this.initialRequest = true;
-        sendMessage();
 
+        recordButton=(Button) findViewById(R.id.record_button);
+
+
+
+        //this.inputMessage.setText("");
+        //this.initialRequest = true;
+
+        //sendMessage();
+
+/*
         //Watson Text-to-Speech Service on Bluemix
-        final TextToSpeech service = new TextToSpeech();
+        final  service = new TextToSpeech();
         service.setUsernameAndPassword("Your Text-to-Speech service username", "Your Text-to-Speech password");
+*/
 
+        /*
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, final int position) {
@@ -97,17 +108,19 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }));
+        */
 
-        btnSend.setOnClickListener(new View.OnClickListener(){
+        recordButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 if(checkInternetConnection()) {
-                    sendMessage();
+                    //sendMessage();
                 }
             }
         });
     };
 
+    /*
     // Sending a message to Watson Conversation Service
     private void sendMessage() {
 
@@ -181,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
         thread.start();
 
     }
+*/
 
     /**
      * Check Internet Connection
