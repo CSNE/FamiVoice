@@ -11,4 +11,7 @@ public class MessageSession {
     public void messageFromBot(String msg){
 
     }
+    public void addMessageListener(MessageListener ml){
+
+    }
 }
