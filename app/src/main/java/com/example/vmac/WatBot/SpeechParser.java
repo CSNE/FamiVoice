@@ -36,14 +36,16 @@ public class SpeechParser {
     public void startParsing() {
         result = null;
         parsing = true;
-
+        Log2.log(2,this,"Starting MicrophoneInputStream");
         capture = new MicrophoneInputStream(true);
+        Log2.log(2,this,"MicrophoneInputStream initialized.");
         new Thread(new Runnable() {
             @Override public void run() {
                 try {
+                    Log2.log(2,this,"Starting recognizeUsingWebSocket");
                     speechService.recognizeUsingWebSocket(capture, getRecognizeOptions(), new MicrophoneRecognizeDelegate());
                 } catch (Exception e) {
-
+                    Log2.log(e);
                 }
             }
         }).start();
@@ -94,6 +96,8 @@ public class SpeechParser {
         }
 
     }
+
+
 
 }
 
