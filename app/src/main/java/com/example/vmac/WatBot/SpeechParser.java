@@ -15,6 +15,9 @@ public class SpeechParser {
     private SpeechToText speechService;
     private String result;
 
+    private MicrophoneInputStream capture;
+    private boolean listening = false;
+
     public SpeechParser() {
 
         speechService = initSpeechToTextService();
@@ -31,8 +34,28 @@ public class SpeechParser {
         return service;
     }
 
-    public String parseAudio(MicrophoneInputStream capture) {
-        speechService.recognizeUsingWebSocket(capture, getRecognizeOptions(), new MicrophoneRecognizeDelegate());
+    public String parseAudio() {
+        if(listening != true) {
+            capture = new MicrophoneInputStream(true);
+            new Thread(new Runnable() {
+                @Override public void run() {
+                    try {
+                        speechService.recognizeUsingWebSocket(capture, getRecognizeOptions(), new MicrophoneRecognizeDelegate());
+                    } catch (Exception e) {
+
+                    }
+                }
+            }).start();
+            listening = true;
+        } else {
+            try {
+                capture.close();
+                listening = false;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
         return result;
     }
 
