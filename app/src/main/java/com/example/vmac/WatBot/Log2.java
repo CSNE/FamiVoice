@@ -15,7 +15,7 @@ import java.util.Date;
 //Logging Convenience Class
 public class Log2 {
     private static final int PERMANENT_LOG_LEVEL = 3;
-    public static final String LOG_TAG = "CS_AFN";
+    public static final String LOG_TAG = "Cisco";
 
     private static StringBuilder importantLogs = new StringBuilder();
 
