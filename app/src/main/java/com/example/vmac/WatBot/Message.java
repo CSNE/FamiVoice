@@ -13,10 +13,9 @@ public class Message implements Serializable {
     public Message() {
     }
 
-    public Message(String id, String message, String createdAt) {
+    public Message(String id, String message) {
         this.id = id;
         this.message = message;
-
 
     }
 

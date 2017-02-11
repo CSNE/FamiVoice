@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.ibm.watson.developer_cloud.android.library.audio.MicrophoneInputStream;
 import com.ibm.watson.developer_cloud.android.library.audio.StreamPlayer;
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     //private boolean initialRequest;
     private Button recordButton;
 
+    private SpeechParser sp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +66,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-        recordButton=(Button) findViewById(R.id.record_button);
+        recordButton = (Button) findViewById(R.id.record_button);
 
+        sp=new SpeechParser();
 
 
         //this.inputMessage.setText("");
@@ -110,11 +114,15 @@ public class MainActivity extends AppCompatActivity {
         }));
         */
 
-        recordButton.setOnClickListener(new View.OnClickListener(){
+        recordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkInternetConnection()) {
-                    //sendMessage();
+                newMessage(new Message("1","Hello!"));
+                newMessage(new Message("0","Fuck You!"));
+                if (checkInternetConnection()) {
+                    MicrophoneInputStream mis = new MicrophoneInputStream(true);
+                    sp.parseAudio(mis);
+
                 }
             }
         });
@@ -218,6 +226,12 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
 
+    }
+
+
+    public void newMessage(Message newMessage){
+        messageArrayList.add(newMessage);
+        mAdapter.notifyDataSetChanged();
     }
 
 
