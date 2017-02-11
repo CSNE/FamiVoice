@@ -1,6 +1,7 @@
 package com.example.vmac.WatBot;
 
 import com.ibm.watson.developer_cloud.android.library.audio.MicrophoneInputStream;
+import com.ibm.watson.developer_cloud.android.library.audio.utils.ContentType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
@@ -15,7 +16,7 @@ public class SpeechParser {
     private String result = null;
 
     private MicrophoneInputStream capture;
-    private boolean listening = false;
+    private boolean parsing = false;
 
     public SpeechParser() {
 
@@ -34,6 +35,7 @@ public class SpeechParser {
 
     public void startParsing() {
         result = null;
+        parsing = true;
         capture = new MicrophoneInputStream(true);
         new Thread(new Runnable() {
             @Override public void run() {
@@ -46,7 +48,12 @@ public class SpeechParser {
         }).start();
     }
 
+    public boolean isParsing() {
+        return parsing;
+    }
+
     public String stopParsing() {
+        parsing = false;
         try {
             capture.close();
         } catch (Exception e) {
@@ -56,7 +63,6 @@ public class SpeechParser {
     }
 
     private RecognizeOptions getRecognizeOptions() {
-        /*
         return new RecognizeOptions.Builder()
                 .continuous(true)
                 .contentType(ContentType.OPUS.toString())
@@ -64,8 +70,6 @@ public class SpeechParser {
                 .interimResults(true)
                 .inactivityTimeout(2000)
                 .build();
-                */
-        return new RecognizeOptions.Builder().build();
     }
 
     private class MicrophoneRecognizeDelegate implements RecognizeCallback {
