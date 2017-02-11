@@ -120,8 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 newMessage(new Message("1","Hello!"));
                 newMessage(new Message("0","Fuck You!"));
                 if (checkInternetConnection()) {
-                    MicrophoneInputStream mis = new MicrophoneInputStream(true);
-                    sp.parseAudio(mis);
+                    sp.parseAudio();
 
                 }
             }
