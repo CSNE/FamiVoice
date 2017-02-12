@@ -105,4 +105,6 @@ public class Logic implements MessageListener{
     public void newMessageFromBot(String msg) {
 
     }
+
+
 }
