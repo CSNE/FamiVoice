@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener{
                         ms.messageFromUser(result);
                         logic.updateMsg(result);
                     }else{
-                        ms.messageFromUser("NULL!!!!");
+                        ms.messageFromUser("Transcription Failed. Please Try Again.");
                     }
                     recordButton.setText("Record");
 
