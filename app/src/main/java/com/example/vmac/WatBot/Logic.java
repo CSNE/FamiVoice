@@ -57,7 +57,7 @@ public class Logic implements MessageListener{
             if(newmsg.equals("help")) {
                 ms.messageFromBot("Help : Available Commands\n -----------------------------------------------------\n" +
                         "ask task list\n   - FamiVoice shows the list of all tasks.\n\n" +
-                        "ask task mine\n   - FamiVoice shows the list of tasks given to you.\n\n" +
+          //              "ask task mine\n   - FamiVoice shows the list of tasks given to you.\n\n" +
                         "update task add (new task)\n   - FamiVoice adds new task to the list.\n\n" +
                         "update task delete (index)\n   - FamiVoice deletes the task of the given index from the list.\n\n" +
                         "ask location all\n   - FamiVoice shows the connection to the home wi-fi network of every member in the group.\n\n" +
@@ -85,7 +85,7 @@ public class Logic implements MessageListener{
                 if(command[2].equals("all")){
                     sc.requestAllLocations();
                 }
-                else sc.requestSomeoneLocations();
+                else sc.requestSomeoneLocations(command[2]);
 
             } //ask location 전체 or 특정인물
             else if(command[0].equals("update")&&command[1].equals("location")){
@@ -98,7 +98,7 @@ public class Logic implements MessageListener{
             else if(command[0].equals("ask")&&command[1].equals("task")){
 
                 if(command[2].equals("list")){ sc.requestAllTasks(); }  // 전부
-                else if(command[2].equals("mine")){ sc.requestMyTasks(); }  // 내꺼만
+             //   else if(command[2].equals("mine")){ sc.requestMyTasks(); }  // 내꺼만
                 else {   ms.messageFromBot("This command is not available. Please try again"); return;}
 
             } // ask task list of mine

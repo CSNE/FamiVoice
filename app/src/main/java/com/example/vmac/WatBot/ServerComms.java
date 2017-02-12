@@ -19,7 +19,7 @@ public class ServerComms {
 
     }
 
-    public void requestSomeoneLocations(){
+    public void requestSomeoneLocations(String name){
 
     }
 
