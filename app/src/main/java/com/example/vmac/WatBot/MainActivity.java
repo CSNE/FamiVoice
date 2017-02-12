@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener{
         ms=new MessageSession();
         ms.addMessageListener(this);
 
-        logic=new Logic(ms);
+        logic=new Logic(ms,getApplicationContext());
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 

@@ -1,5 +1,7 @@
 package com.example.vmac.WatBot;
 
+import android.content.Context;
+
 /**
  * Created by danny on 2017-02-11.
  */
@@ -9,11 +11,14 @@ public class Logic implements MessageListener{
     ServerComms sc;
     String newmsg;
     int step=1;
+    WordtoNumber wn;
 
-    public Logic(MessageSession ms) {
+    public Logic(MessageSession ms, Context c) {
         this.ms = ms;
         newmsg = null;
         step = 1;
+        wn = new WordtoNumber();
+        sc=new ServerComms(c);
     }
 
     public void restart(){
