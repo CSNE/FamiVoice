@@ -74,19 +74,36 @@ public class MainActivity extends AppCompatActivity implements MessageListener{
             @Override
             public void onClick(View v) {
                 //ms.messageFromUser("asdf!!!");
-                if (sp.isParsing()){
-                    String res=sp.stopParsing();
-                    if (res!=null) {
-                        ms.messageFromUser(res);
+                if (sp.isParsing()) {
+                    sp.stopParsing();
+
+                    int counter = 0;
+                    String result = null;
+                    while(true) {
+                        try {
+                            Thread.sleep(10); counter++;
+                            if(result != sp.getScript()) {
+                                result = sp.getScript();
+                                counter = 0;
+                            }
+                            if(counter > 80) break;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (result!=null) {
+                        ms.messageFromUser(result);
                     }else{
                         ms.messageFromUser("NULL!!!!");
                     }
+                    recordButton.setText("Record");
 
                 }else{
                     if (checkInternetConnection()) {
+                        recordButton.setText("Recording...");
                         sp.startParsing();
                     }
-
                 }
 
             }

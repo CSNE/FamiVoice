@@ -14,10 +14,15 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallb
 public class SpeechParser {
 
     private SpeechToText speechService;
-    private String result = null;
 
     private MicrophoneInputStream capture;
     private boolean parsing = false;
+
+    private String script = "";
+    public String getScript() { return script; }
+
+    private boolean transcripting = false;
+    public boolean isTranscripting() { return transcripting; }
 
     public SpeechParser() {
 
@@ -35,8 +40,9 @@ public class SpeechParser {
     }
 
     public void startParsing() {
-        result = null;
         parsing = true;
+        transcripting = true;
+        script = null;
         Log2.log(2,this,"Starting MicrophoneInputStream");
         capture = new MicrophoneInputStream(true);
         Log2.log(2,this,"MicrophoneInputStream initialized.");
@@ -56,14 +62,13 @@ public class SpeechParser {
         return parsing;
     }
 
-    public String stopParsing() {
+    public void stopParsing() {
         parsing = false;
         try {
             capture.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
     }
 
     private RecognizeOptions getRecognizeOptions() {
@@ -81,7 +86,9 @@ public class SpeechParser {
         @Override
         public void onTranscription(SpeechResults speechResults) {
             System.out.println(speechResults);
-            result = speechResults.getResults().get(0).getAlternatives().get(0).getTranscript();
+            if(speechResults.getResults().size() == 0) script = null;
+            else script = speechResults.getResults().get(0).getAlternatives().get(0).getTranscript();
+            transcripting = false;
         }
 
         @Override public void onConnected() {
