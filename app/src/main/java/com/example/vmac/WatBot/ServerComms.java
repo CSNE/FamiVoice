@@ -80,11 +80,13 @@ public class ServerComms {
 
 
 
-    public ServerComms(Context c){
+    public ServerComms(Context c, MessageSession ms){
         this.c=c;
+        this.ms=ms;
     }
 
     Context c;
+    MessageSession ms;
 
 
 
@@ -176,9 +178,15 @@ public class ServerComms {
             }, RETRY_INTERVAL_MILLISEC);
 
 
+
+
         } else {
             Log.d("Familink", "POST returned. | Request type:" + requestType+" | Data(newline stripped, full data on FamilinkHTML): "+data.replace("\n",""));
             Log.v("FamilinkHTML", "Data Returned: " + data);
+
+            if (requestType.equals("Virtual Command")){
+                ms.messageFromBot(data);
+            }
 
         }
     }
