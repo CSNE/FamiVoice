@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements MessageListener{
 
     private SpeechParser sp;
 
+    private Logic logic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements MessageListener{
 
         ms=new MessageSession();
         ms.addMessageListener(this);
+
+        logic=new Logic(ms);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
@@ -94,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener{
 
                     if (result!=null) {
                         ms.messageFromUser(result);
+                        logic.updateMsg(result);
                     }else{
                         ms.messageFromUser("NULL!!!!");
                     }
@@ -108,6 +113,8 @@ public class MainActivity extends AppCompatActivity implements MessageListener{
 
             }
         });
+
+        logic.restart();
     };
 
 

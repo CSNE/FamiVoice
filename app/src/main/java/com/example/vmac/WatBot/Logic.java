@@ -11,23 +11,38 @@ public class Logic implements MessageListener{
     int step=1;
     WordtoNumber wn;
 
+    public Logic(MessageSession ms) {
+        this.ms = ms;
+        newmsg = null;
+        step = 1;
+        wn = new WordtoNumber();
+    }
+
     public void restart(){
         step=1;
-        newmsg="";
+        updateMsg("");
+    }
+
+    public void updateMsg(String msg) {
+        newmsg = msg;
         query_start();
-        }
+    }
+
     public void query_start(){
+
+        System.out.println("new query starts");
+        newmsg = newmsg.trim();
 
         if(newmsg.equals("restart")){ restart(); return; }
 
         if(step==1) {
-            ms.messageFromBot("Please select a group");
+            ms.messageFromBot("Please select your group.\n These are the groups available.");
             step++;
         }
         else if(step==2) { // 그룹 번호 받아오기
             //todo 총 그룹수 받아와서 작은지 확인하기
             if(wn.word_to_number(newmsg)>0){
-            ms.messageFromBot("Please tell a command");
+            ms.messageFromBot("Please tell a command.");
             step++; }
             else
                 ms.messageFromBot("The group doesn't exist. Please try again");
