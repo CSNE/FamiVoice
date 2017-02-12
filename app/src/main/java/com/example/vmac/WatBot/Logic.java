@@ -9,6 +9,7 @@ public class Logic implements MessageListener{
     ServerComms sc;
     String newmsg;
     int step=1;
+    WordtoNumber wn;
 
     public void restart(){
         step=1;
@@ -24,12 +25,12 @@ public class Logic implements MessageListener{
             step++;
         }
         else if(step==2) {
-            //todo 가능한지 판단하기
-            if(false){
+            //todo 총 그룹수 받아와서 작은지 확인하기
+            if(wn.word_to_number(newmsg)>0){
             ms.messageFromBot("Please tell a command");
             step++; }
             else
-                ms.messageFromBot("The group doesn't exist. Please try agian");
+                ms.messageFromBot("The group doesn't exist. Please try again");
 
 
         }
@@ -50,7 +51,7 @@ public class Logic implements MessageListener{
             else if(command[0].equals("update")&&command[1].equals("location")){
 
                 if(command[2].equals("on")){}
-                else if(command[2].equals("of")){}  // 문자 정보기능 껴고 키기
+                else if(command[2].equals("of")){}  // todo 문자 정보기능 껴고 키기
                 else {   ms.messageFromBot("The command is not available. Please try again"); return;}
 
             }// update location on or off
@@ -67,19 +68,26 @@ public class Logic implements MessageListener{
             if(command[0].equals("update")&&command[1].equals("task")){
 
                 if(command[2].equals("add")){
+
                     StringBuffer task = new StringBuffer(command[3]);
-                    for(int i=4;i<len;i++) task.append(command[i]);
-                    sc.addTask(task.toString());
+                    for(int i=4;i<len;i++) task.append(command[i]); // 그 뒤로 이어진 단어들을 연결
+                    sc.addTask(task.toString()); // 말한것을 할일에 추가
                 }
                 else  if(command[2].equals("delete")){
-                    // todo 숫자로 변환
+
                     int n=0;
-                    sc.deleteTask(n);
+                    StringBuffer num = new StringBuffer(command[3]);
+                    for(int i=4;i<len;i++) num.append(command[i]); // 그 뒤로 이어진 단어들을 연결
+                    n=wn.word_to_number(num.toString());
+                    if(n<=1){   ms.messageFromBot("The number is not available. Please try again"); return;}
+                    sc.deleteTask(n); // 말한 숫자 번째의 할 일 지우기
+                    // todo 총 할일 수보다 큰 숫자인지 확인
+
                 }
                 else {   ms.messageFromBot("The command is not available. Please try again"); return;}
             }
 
-            // todo 정보 출력
+            // todo 서버에서 받은 정보 출력하기
             restart();
 
         }
@@ -105,4 +113,6 @@ public class Logic implements MessageListener{
     public void newMessageFromBot(String msg) {
 
     }
+
+
 }
