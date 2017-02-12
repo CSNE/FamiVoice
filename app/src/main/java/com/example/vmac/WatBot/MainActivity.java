@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener{
         setContentView(R.layout.activity_main);
 
         ms=new MessageSession();
+        ms.addMessageListener(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener{
         recordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //ms.messageFromUser("asdf!!!");
                 if (sp.isParsing()){
                     String res=sp.stopParsing();
                     if (res!=null) {
