@@ -103,10 +103,9 @@ public class Logic implements MessageListener{
                 else {   ms.messageFromBot("This command is not available. Please try again"); return;}
 
             } // ask task list of mine
+            else if(command[0].equals("update")&&command[1].equals("task")){
 
-            if(len<4){   ms.messageFromBot("This command is not available. Please try again"); return;}
-
-            if(command[0].equals("update")&&command[1].equals("task")){
+                if(len<4){   ms.messageFromBot("This command is not available. Please try again"); return;}
 
                 if(command[2].equals("add")){
 
@@ -127,6 +126,7 @@ public class Logic implements MessageListener{
                 }
                 else {   ms.messageFromBot("This command is not available. Please try again"); return;}
             }
+            else {   ms.messageFromBot("This command is not available. Please try again"); return;}
 
             // todo 서버에서 받은 정보 출력하기
             restart();
