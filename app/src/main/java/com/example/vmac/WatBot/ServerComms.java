@@ -66,6 +66,8 @@ public class ServerComms {
     }
 
     public void addTask(String task){
+
+
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("Request Type", "Virtual Command");
