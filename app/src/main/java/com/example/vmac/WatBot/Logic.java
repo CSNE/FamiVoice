@@ -13,8 +13,8 @@ public class Logic implements MessageListener{
 
     public void restart(){
         step=1;
-        query_start();
         newmsg="";
+        query_start();
         }
     public void query_start(){
 
