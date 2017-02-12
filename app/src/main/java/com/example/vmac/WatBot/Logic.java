@@ -24,7 +24,7 @@ public class Logic implements MessageListener{
             ms.messageFromBot("Please select a group");
             step++;
         }
-        else if(step==2) {
+        else if(step==2) { // 그룹 번호 받아오기
             //todo 총 그룹수 받아와서 작은지 확인하기
             if(wn.word_to_number(newmsg)>0){
             ms.messageFromBot("Please tell a command");
@@ -35,6 +35,15 @@ public class Logic implements MessageListener{
 
         }
         else if(step==3) {
+            /*
+            ask task list
+            ask task mine
+            update task add ~~~~
+            update task delete (num)
+            ask location all
+            ask location (someone)
+            update location on/off
+             */
             String[] command=newmsg.split(" ");
             int len=command.length;
 
