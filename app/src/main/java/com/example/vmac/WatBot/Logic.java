@@ -42,7 +42,7 @@ public class Logic implements MessageListener{
         else if(step==2) { // 그룹 번호 받아오기
             //todo 총 그룹수 받아와서 작은지 확인하기
             if(newmsg.equals("help")) {
-                ms.messageFromBot("Help : Selecting the Group\n --------------------\n Say the index of the group you want to command.");
+                ms.messageFromBot("Help : Selecting the Group\n ---------------------------------------------------\n Say the index of the group you want to command.");
                 return;
             }
             else if(wn.word_to_number(newmsg)>0){
@@ -55,15 +55,15 @@ public class Logic implements MessageListener{
         }
         else if(step==3) {
             if(newmsg.equals("help")) {
-                ms.messageFromBot("Help : Available Commands\n ---------------------\n" +
-                        "ask task list : FamiVoice shows the list of all tasks.\n" +
-                        "ask task mine : FamiVoice shows the list of tasks given to you.\n" +
-                        "update task add (new task) : FamiVoice adds new task to the list.\n" +
-                        "update task delete (index) : FamiVoice deletes the task of the given index from the list.\n" +
-                        "ask location all : FamiVoice shows the connection to the home wi-fi network of every member in the group.\n" +
-                        "ask location (member) : FamiVoice shows the connection to the home wi-fi network of the given member.\n" +
-                        "update location on : FamiVoice notifies the connection/disconnection to the home wi-fi network.\n" +
-                        "update location off : FamiVoice no longer notifies the connection/disconnection to the home wi-fi network.");
+                ms.messageFromBot("Help : Available Commands\n -----------------------------------------------------\n" +
+                        "ask task list\n   - FamiVoice shows the list of all tasks.\n\n" +
+                        "ask task mine\n   - FamiVoice shows the list of tasks given to you.\n\n" +
+                        "update task add (new task)\n   - FamiVoice adds new task to the list.\n\n" +
+                        "update task delete (index)\n   - FamiVoice deletes the task of the given index from the list.\n\n" +
+                        "ask location all\n   - FamiVoice shows the connection to the home wi-fi network of every member in the group.\n\n" +
+                        "ask location (member)\n   - FamiVoice shows the connection to the home wi-fi network of the given member.\n\n" +
+                        "update location on\n   - FamiVoice notifies the connection/disconnection to the home wi-fi network.\n\n" +
+                        "update location off\n   - FamiVoice no longer notifies the connection/disconnection to the home wi-fi network.");
                 return;
             }
             /*

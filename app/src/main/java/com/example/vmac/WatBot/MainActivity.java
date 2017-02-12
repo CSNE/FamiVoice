@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements MessageListener{
 
                 }else{
                     if (checkInternetConnection()) {
-                        recordButton.setText("Recording...");
+                        recordButton.setText("Stop");
                         sp.startParsing();
                     }
                 }
