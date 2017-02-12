@@ -25,13 +25,17 @@ import java.util.TimerTask;
 //서버 통신 클래스
 public class ServerComms {
 
-
+    int familyID;
+    public void setFamilyID(int fid){
+        this.familyID=fid;
+    }
 
 
     public void requestAllLocations(){
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("Request Type", "Virtual Command");
+        pe.addDataSet("Family ID",Integer.toString(familyID));
         pe.addDataSet("Command","ask location all");
         postReq = pe.encode();
         this.sendPOST(postReq, "Virtual Command");
@@ -41,6 +45,7 @@ public class ServerComms {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("Request Type", "Virtual Command");
+        pe.addDataSet("Family ID",Integer.toString(familyID));
         pe.addDataSet("Command","ask location "+s);
         postReq = pe.encode();
         this.sendPOST(postReq, "Virtual Command");
@@ -50,6 +55,7 @@ public class ServerComms {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("Request Type", "Virtual Command");
+        pe.addDataSet("Family ID",Integer.toString(familyID));
         pe.addDataSet("Command","ask task all");
         postReq = pe.encode();
         this.sendPOST(postReq, "Virtual Command");
@@ -60,6 +66,7 @@ public class ServerComms {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("Request Type", "Virtual Command");
+        pe.addDataSet("Family ID",Integer.toString(familyID));
         pe.addDataSet("Command","update task delete "+n);
         postReq = pe.encode();
         this.sendPOST(postReq, "Virtual Command");
@@ -71,6 +78,7 @@ public class ServerComms {
         String postReq = new String();
         POSTEncoder pe = new POSTEncoder();
         pe.addDataSet("Request Type", "Virtual Command");
+        pe.addDataSet("Family ID",Integer.toString(familyID));
         pe.addDataSet("Command","update task add "+task);
         postReq = pe.encode();
         this.sendPOST(postReq, "Virtual Command");

@@ -11,6 +11,8 @@ public class Logic implements MessageListener{
     ServerComms sc;
     String newmsg;
     int step=1;
+    int familyID;
+
     WordtoNumber wn;
 
     public Logic(MessageSession ms, Context c) {
@@ -18,7 +20,7 @@ public class Logic implements MessageListener{
         newmsg = null;
         step = 1;
         wn = new WordtoNumber();
-        sc=new ServerComms(c);
+        sc=new ServerComms(c,ms);
     }
 
     public void restart(){
@@ -46,14 +48,17 @@ public class Logic implements MessageListener{
         }
         else if(step==2) { // 그룹 번호 받아오기
             //todo 총 그룹수 받아와서 작은지 확인하기
-            System.out.println(newmsg + " " + wn.word_to_number(newmsg));
+            familyID=wn.word_to_number(newmsg);
+            System.out.println(newmsg + " " + familyID);
             if(newmsg.equals("help")) {
                 ms.messageFromBot("Help : Selecting the Group\n ---------------------------------------------------\n Say the index of the group you want to command.");
                 return;
             }
             else if(wn.word_to_number(newmsg)>0){
             ms.messageFromBot("Please tell a command.");
-            step++; }
+            step++;
+            sc.setFamilyID(familyID);
+            }
             else
                 ms.messageFromBot("The group doesn't exist. Please try again");
 
